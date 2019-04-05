@@ -1,0 +1,6 @@
+For CMD
+
+javac com\rmi\*.java
+start rmiregistry
+start java com.rmi.Server
+java com.rmi.Client

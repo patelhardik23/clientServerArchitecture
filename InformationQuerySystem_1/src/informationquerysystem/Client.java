@@ -16,11 +16,11 @@ public class Client extends javax.swing.JFrame {
     public Client() {
         serverDetail = null;
         portNumber = 0;
-        initialiseClientUIComponents();
+        intiClientGUI();
     }
     @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:intiClientGUI
+    private void intiClientGUI() {
 
         serverNameLbl = new javax.swing.JLabel();
         serverNameTb = new javax.swing.JTextField();
@@ -205,22 +205,58 @@ public class Client extends javax.swing.JFrame {
         );
 
         pack();
-    }// </editor-fold>//GEN-END:initComponents
+    }// </editor-fold>//GEN-END:intiClientGUI
 
     private void setBtnClickEvent(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_setBtnClickEvent
         // TODO add your handling code here:
+        serverDetail = serverNameTb.getText();
+        portNumber = Integer.parseInt(serverPortTb.getText());
+        System.out.println(serverDetail + " : " + portNumber);
     }//GEN-LAST:event_setBtnClickEvent
 
     private void contectQueryBtnEvent(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_contectQueryBtnEvent
         // TODO add your handling code here:
+        try
+        {
+            String msg = "<1>,<" + studentIdTb.getText() + ">";
+            System.out.println("Send : " + msg);
+            String response = send_recv(msg);
+            queryAnsTA.setText(response);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
     }//GEN-LAST:event_contectQueryBtnEvent
 
     private void enrollUnitQueryBtnEvent(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enrollUnitQueryBtnEvent
         // TODO add your handling code here:
+        try
+        {
+            String msg = "<2>,<" + studentIdTb1.getText() + ">";
+            System.out.println("Send : " + msg);
+            String response = send_recv(msg);
+            queryAnsTA.setText(response);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
     }//GEN-LAST:event_enrollUnitQueryBtnEvent
 
     private void unitQueryBtnEvent(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_unitQueryBtnEvent
         // TODO add your handling code here:
+        try
+        {
+            String msg = "<3>,<" + unitCodeTb.getText() + ">";
+            System.out.println("Send : " + msg);
+            String response = send_recv(msg);
+            queryAnsTA.setText(response);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
     }//GEN-LAST:event_unitQueryBtnEvent
     //method to send message 'msg' to the server, receive the response from the server and convert to string
     public String send_recv(String msg) throws Exception{
@@ -229,10 +265,12 @@ public class Client extends javax.swing.JFrame {
         byte[] buffer = msg.getBytes();// convert msg to byte array
         byte[] recv_buffer = new byte[2048];// buffer to store response
         DatagramPacket pkt = new DatagramPacket(buffer, buffer.length, address, portNumber);//'msg' packet to be sent to server
+        System.out.println("Client -> start sending...");
         socket.send(pkt);// send the packet
         pkt = new DatagramPacket(recv_buffer, recv_buffer.length); //response packet from the server
         socket.receive(pkt);// receive the packet from the server
         String recv_msg = new String(pkt.getData(), 0, pkt.getLength()); // convert server response to string
+        recv_buffer = new byte[2048];
         return recv_msg;
     }
     

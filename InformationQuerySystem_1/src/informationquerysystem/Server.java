@@ -18,6 +18,8 @@ import javax.swing.JOptionPane;
  */
 public class Server {
 
+
+
     /**
      * @param args the command line arguments
      */
@@ -26,6 +28,12 @@ public class Server {
     private static final HashMap<String, String> unit_code = new HashMap<>();
     
     public static void main(String[] args)throws Exception {
+        Process p1,p2,p3;
+
+        p1 = new Process();
+        p2 = new Process();
+        p3 = new Process();
+
         // TODO code application logic here
         loadStudentInfo(); //load student information into HashMap
         int port = 8888; //Port number on which server is listening
@@ -35,32 +43,49 @@ public class Server {
         System.out.println("Server is running...");
         while(true){
             pkt = new DatagramPacket(buffer, buffer.length);
+            System.out.println("Server -> Start receiving");
             socket.receive(pkt);
             
             String msg = new String(pkt.getData(), 0, pkt.getLength());// convert received data into String format
             //System.out.println(msg);
-            String[] msg_ar = msg.split(" "); //split msg to identify the type of query
+            String[] msg_ar = msg.split(">,<"); //split msg to identify the type of query
             //depending upon the type of query start a new thread
+            msg_ar[0] = msg_ar[0].replace("<","");
+            msg_ar[1] = msg_ar[1].replace(">","");
+            System.out.println(msg_ar);
+
+            /*Thread t1,t2,t3;
+
+            t1 = t2=t3 = null;
+            t1 = new Thread(new Process(Integer.parseInt(msg_ar[0]), msg_ar[1], contact_details, enrolled_units, unit_code, socket, pkt));
+            t2 = new Thread(new Process(Integer.parseInt(msg_ar[0]), msg_ar[1], contact_details, enrolled_units, unit_code, socket, pkt));
+            t3 = new Thread(new Process(Integer.parseInt(msg_ar[0]), msg_ar[1], contact_details, enrolled_units, unit_code, socket, pkt));
+            */
+
             if(msg_ar[0].compareTo("1")==0){
                 //System.out.println(msg);
                 //thread for getting contact
-                Thread t1 = new Thread(new Process(Integer.parseInt(msg_ar[0]), msg_ar[1], contact_details, enrolled_units, unit_code, socket, pkt));
-                t1.start();
+                //t1.start();
+                p1.execute(Integer.parseInt(msg_ar[0]), msg_ar[1],socket, pkt);
                 
             }
             else if(msg_ar[0].compareTo("2")==0){
                 //thread for getting the enrollment units
-                Thread t2 = new Thread(new Process(Integer.parseInt(msg_ar[0]), msg_ar[1], contact_details, enrolled_units, unit_code, socket, pkt));
-                t2.start();
+                //t2.start();
+                p2.execute(Integer.parseInt(msg_ar[0]), msg_ar[1],socket, pkt);
             }
             else if(msg_ar[0].compareTo("3")==0) {
                 //thread for unit details
-                Thread t3 = new Thread(new Process(Integer.parseInt(msg_ar[0]), msg_ar[1], contact_details, enrolled_units, unit_code, socket, pkt));
-                t3.start();
+                //t3.start();
+                p3.execute(Integer.parseInt(msg_ar[0]), msg_ar[1],socket, pkt);
             }
             else{
                 //do nothing
-            }
+            }/*
+            System.out.println(p1.getState());
+            System.out.println(p2.getState());
+            System.out.println(p3.getState());*/
+            buffer = new byte[10000];
         }
     }
     //Demo Student Information put in the HashMap 'student_info'
@@ -104,6 +129,13 @@ static class Process implements Runnable {
     DatagramSocket socket; //Socket to carry the packet from Server to Client
     DatagramPacket pkt; // Packet which is carried
     //constructor to initialize the data items
+    public Process()
+    {
+        this.contact_details = contact_details;
+        this.enrolled_units = enrolled_units;
+        this.unit_code = unit_code;
+    }
+
     public Process(int type, String id, HashMap<String, String> contact_details, HashMap<String, ArrayList<String>> enrolled_units, HashMap<String, String> unit_code,DatagramSocket s, DatagramPacket p){
         this.type = type;
         this.id = id;
@@ -112,6 +144,15 @@ static class Process implements Runnable {
         this.unit_code = unit_code;
         socket = s;
         pkt = p;
+    }
+
+    public void execute(int type, String id,DatagramSocket s, DatagramPacket p)
+    {
+        this.type = type;
+        this.id = id;
+        socket = s;
+        pkt = p;
+        this.run();
     }
     
     @Override
@@ -137,7 +178,7 @@ static class Process implements Runnable {
                             send_msg = "No record for "+id+" found";
                         break;
                 }
-             
+            System.out.println("Sending meg -> "+send_msg);
             byte[] buffer = send_msg.getBytes(); // stores the message in byte array
             InetAddress address = pkt.getAddress(); //get address of destination
             int port = pkt.getPort(); //get the port number 

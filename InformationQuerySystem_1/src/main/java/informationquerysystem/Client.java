@@ -1,6 +1,8 @@
 
 package informationquerysystem;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
@@ -9,19 +11,47 @@ import java.net.InetAddress;
  *
  * @author Hardik Patel
  */
-public class Client extends javax.swing.JFrame {    
+public class Client extends javax.swing.JFrame implements ActionListener
+{
     String serverDetail; // the hostname of the server
     int portNumber; // the port number on which the server is listening
-    // constructor for initialization
+    final int BUFFER_SIZE=1000;
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton contactQueryBtn;
+    private javax.swing.JButton enrollUnitQueryBtn;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JSeparator jSeparator3;
+    private javax.swing.JSeparator jSeparator4;
+    private javax.swing.JLabel queryAnsLbl;
+    private javax.swing.JTextArea queryAnsTA;
+    private javax.swing.JLabel serverNameLbl;
+    private javax.swing.JTextField serverNameTb;
+    private javax.swing.JLabel serverPortLbl;
+    private javax.swing.JTextField serverPortTb;
+    private javax.swing.JButton setBtn;
+    private javax.swing.JLabel stdEnrollUnitLbl;
+    private javax.swing.JLabel studentContDetLbl;
+    private javax.swing.JLabel studentIdLbl;
+    private javax.swing.JLabel studentIdLbl1;
+    private javax.swing.JTextField studentIdTb;
+    private javax.swing.JTextField studentIdTb1;
+    private javax.swing.JLabel unitCodeLbl;
+    private javax.swing.JTextField unitCodeTb;
+    private javax.swing.JLabel unitDetailLbl;
+    private javax.swing.JButton unitQueryBtn;
+    // End of variables declaration//GEN-END:variables
+
     public Client() {
         serverDetail = null;
         portNumber = 0;
         intiClientGUI();
     }
     @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:intiClientGUI
-    private void intiClientGUI() {
-
+    private void intiClientGUI()
+    {
         serverNameLbl = new javax.swing.JLabel();
         serverNameTb = new javax.swing.JTextField();
         serverPortLbl = new javax.swing.JLabel();
@@ -31,14 +61,14 @@ public class Client extends javax.swing.JFrame {
         studentContDetLbl = new javax.swing.JLabel();
         studentIdLbl = new javax.swing.JLabel();
         studentIdTb = new javax.swing.JTextField();
-        contectQueryBtn = new javax.swing.JButton();
+        contactQueryBtn = new javax.swing.JButton();
         jSeparator2 = new javax.swing.JSeparator();
         stdEnrollUnitLbl = new javax.swing.JLabel();
         studentIdLbl1 = new javax.swing.JLabel();
         studentIdTb1 = new javax.swing.JTextField();
         enrollUnitQueryBtn = new javax.swing.JButton();
         jSeparator3 = new javax.swing.JSeparator();
-        unitDetalLbl = new javax.swing.JLabel();
+        unitDetailLbl = new javax.swing.JLabel();
         unitCodeLbl = new javax.swing.JLabel();
         unitCodeTb = new javax.swing.JTextField();
         unitQueryBtn = new javax.swing.JButton();
@@ -56,44 +86,28 @@ public class Client extends javax.swing.JFrame {
         serverPortLbl.setText("Server Port");
 
         setBtn.setText("Set");
-        setBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                setBtnClickEvent(evt);
-            }
-        });
+        setBtn.addActionListener(this);
 
         studentContDetLbl.setText("Student Contact Details");
 
         studentIdLbl.setText("Student ID");
 
-        contectQueryBtn.setText("Query");
-        contectQueryBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                contectQueryBtnEvent(evt);
-            }
-        });
+        contactQueryBtn.setText("Query");
+        contactQueryBtn.addActionListener(this);
 
         stdEnrollUnitLbl.setText("Student Enrolled Units");
 
         studentIdLbl1.setText("Student ID");
 
         enrollUnitQueryBtn.setText("Query");
-        enrollUnitQueryBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                enrollUnitQueryBtnEvent(evt);
-            }
-        });
+        enrollUnitQueryBtn.addActionListener(this);
 
-        unitDetalLbl.setText("Unit Details");
+        unitDetailLbl.setText("Unit Details");
 
         unitCodeLbl.setText("Unit Code");
 
         unitQueryBtn.setText("Query");
-        unitQueryBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                unitQueryBtnEvent(evt);
-            }
-        });
+        unitQueryBtn.addActionListener(this);
 
         queryAnsLbl.setText("Query Answers");
 
@@ -138,13 +152,13 @@ public class Client extends javax.swing.JFrame {
                                         .addComponent(studentIdTb, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addComponent(studentContDetLbl)
                                     .addComponent(stdEnrollUnitLbl)
-                                    .addComponent(unitDetalLbl))
+                                    .addComponent(unitDetailLbl))
                                 .addGap(0, 121, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(setBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(contectQueryBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(contactQueryBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(enrollUnitQueryBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(unitQueryBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(layout.createSequentialGroup()
@@ -176,7 +190,7 @@ public class Client extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(studentIdLbl)
                     .addComponent(studentIdTb, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(contectQueryBtn))
+                    .addComponent(contactQueryBtn))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -189,7 +203,7 @@ public class Client extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(unitDetalLbl)
+                .addComponent(unitDetailLbl)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(unitCodeLbl)
@@ -205,78 +219,91 @@ public class Client extends javax.swing.JFrame {
         );
 
         pack();
-    }// </editor-fold>//GEN-END:intiClientGUI
+    }
 
-    private void setBtnClickEvent(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_setBtnClickEvent
-        // TODO add your handling code here:
+    @Override
+    public void actionPerformed(ActionEvent e)
+    {
+        if(e.getSource() == setBtn)
+            setServerDetail();
+        if(e.getSource() == contactQueryBtn)
+            fetchContactDetails();
+        if(e.getSource() == enrollUnitQueryBtn)
+            fetchEnrolledUnits();
+        if(e.getSource() == unitQueryBtn)
+            fetchUnitDetails();
+    }
+
+    private void setServerDetail() {
         serverDetail = serverNameTb.getText();
         portNumber = Integer.parseInt(serverPortTb.getText());
         System.out.println(serverDetail + " : " + portNumber);
-    }//GEN-LAST:event_setBtnClickEvent
+        setBtn.setEnabled(false);
+    }
 
-    private void contectQueryBtnEvent(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_contectQueryBtnEvent
-        // TODO add your handling code here:
+    private void fetchContactDetails() {
         try
         {
             String msg = "<1>,<" + studentIdTb.getText() + ">";
-            System.out.println("Send : " + msg);
-            String response = send_recv(msg);
+            String response = sendReceive(msg);
             queryAnsTA.setText(response);
         }
         catch (Exception e)
         {
             e.printStackTrace();
         }
-    }//GEN-LAST:event_contectQueryBtnEvent
+    }
 
-    private void enrollUnitQueryBtnEvent(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enrollUnitQueryBtnEvent
-        // TODO add your handling code here:
+    private void fetchEnrolledUnits() {
         try
         {
             String msg = "<2>,<" + studentIdTb1.getText() + ">";
-            System.out.println("Send : " + msg);
-            String response = send_recv(msg);
+            String response = sendReceive(msg);
             queryAnsTA.setText(response);
         }
         catch (Exception e)
         {
             e.printStackTrace();
         }
-    }//GEN-LAST:event_enrollUnitQueryBtnEvent
+    }
 
-    private void unitQueryBtnEvent(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_unitQueryBtnEvent
-        // TODO add your handling code here:
+    private void fetchUnitDetails() {
         try
         {
             String msg = "<3>,<" + unitCodeTb.getText() + ">";
-            System.out.println("Send : " + msg);
-            String response = send_recv(msg);
+            String response = sendReceive(msg);
             queryAnsTA.setText(response);
         }
         catch (Exception e)
         {
             e.printStackTrace();
         }
-    }//GEN-LAST:event_unitQueryBtnEvent
+    }
+
     //method to send message 'msg' to the server, receive the response from the server and convert to string
-    public String send_recv(String msg) throws Exception{
+    public String sendReceive(String msg) throws Exception{
         DatagramSocket socket = new DatagramSocket();// carries packet from source to destination
         InetAddress address = InetAddress.getByName(serverDetail);// address of the server from the hostname
+
         byte[] buffer = msg.getBytes();// convert msg to byte array
-        byte[] recv_buffer = new byte[2048];// buffer to store response
         DatagramPacket pkt = new DatagramPacket(buffer, buffer.length, address, portNumber);//'msg' packet to be sent to server
-        System.out.println("Client -> start sending...");
+        System.out.println("Request -> "+msg);
         socket.send(pkt);// send the packet
-        pkt = new DatagramPacket(recv_buffer, recv_buffer.length); //response packet from the server
+
+        byte[] recvBuffer = new byte[BUFFER_SIZE];// buffer to store response
+        pkt = new DatagramPacket(recvBuffer, recvBuffer.length); //response packet from the server
         socket.receive(pkt);// receive the packet from the server
-        String recv_msg = new String(pkt.getData(), 0, pkt.getLength()); // convert server response to string
-        recv_buffer = new byte[2048];
-        return recv_msg;
+        String recvMsg = new String(pkt.getData(), 0, pkt.getLength()); // convert server response to string
+        System.out.println("Response -> "+recvMsg);
+
+        //Reset buffer
+        recvBuffer = new byte[BUFFER_SIZE];
+        return recvMsg;
     }
     
-    public static void main(String args[]) {
-        
-        java.awt.EventQueue.invokeLater(new Runnable() {
+    public static void main(String args[])
+    {
+       java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
                 Client c = new Client();
@@ -287,30 +314,7 @@ public class Client extends javax.swing.JFrame {
         });
     }
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton contectQueryBtn;
-    private javax.swing.JButton enrollUnitQueryBtn;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JSeparator jSeparator3;
-    private javax.swing.JSeparator jSeparator4;
-    private javax.swing.JLabel queryAnsLbl;
-    private javax.swing.JTextArea queryAnsTA;
-    private javax.swing.JLabel serverNameLbl;
-    private javax.swing.JTextField serverNameTb;
-    private javax.swing.JLabel serverPortLbl;
-    private javax.swing.JTextField serverPortTb;
-    private javax.swing.JButton setBtn;
-    private javax.swing.JLabel stdEnrollUnitLbl;
-    private javax.swing.JLabel studentContDetLbl;
-    private javax.swing.JLabel studentIdLbl;
-    private javax.swing.JLabel studentIdLbl1;
-    private javax.swing.JTextField studentIdTb;
-    private javax.swing.JTextField studentIdTb1;
-    private javax.swing.JLabel unitCodeLbl;
-    private javax.swing.JTextField unitCodeTb;
-    private javax.swing.JLabel unitDetalLbl;
-    private javax.swing.JButton unitQueryBtn;
-    // End of variables declaration//GEN-END:variables
+
+
+
 }

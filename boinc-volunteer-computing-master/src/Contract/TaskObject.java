@@ -33,5 +33,5 @@ public class TaskObject implements Serializable {
 
     public void settObject(Task tObject) {
         this.tObject = tObject;
-    }
+    }   
 }

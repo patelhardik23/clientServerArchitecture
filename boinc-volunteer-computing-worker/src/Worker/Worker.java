@@ -12,7 +12,7 @@ public class Worker {
         int filePort = 6790;
         try {
             Client client = new Client("localhost", objectPort, filePort);
-            client.downloadClassFile("CalculatePi");
+            client.test();
             client.closeConnection();
         } catch (IOException ex) {
             Logger.getLogger(Worker.class.getName()).log(Level.SEVERE, null, ex);

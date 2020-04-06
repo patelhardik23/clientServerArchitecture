@@ -4,7 +4,14 @@ import java.io.Serializable;
 
 public class CalculateGCD implements Task, Serializable {
 
-    private long CalculateGCD(long a, long b) {
+    long value1, value2, result;
+
+    public CalculateGCD(long a, long b) {
+        value1 = a;
+        value2 = b;
+    }
+
+    private long calculate(long a, long b) {
         if (a == 0) {
             return b;
         } else {
@@ -21,11 +28,11 @@ public class CalculateGCD implements Task, Serializable {
 
     @Override
     public void executeTask() {
-
+        result = calculate(value1, value2);
     }
 
     @Override
     public Object getResult() {
-        return null;
+        return result;
     }
 }

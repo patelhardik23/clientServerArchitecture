@@ -19,6 +19,8 @@ public class CalculatePi implements Task, Serializable {
      */
     private final int digits;
 
+    private BigDecimal result;
+
     /**
      * Construct a task to calculate pi to the specified precision.
      */
@@ -76,11 +78,11 @@ public class CalculatePi implements Task, Serializable {
 
     @Override
     public void executeTask() {
-
+        result = computePi(digits);
     }
 
     @Override
     public Object getResult() {
-        return null;
+        return result;
     }
 }

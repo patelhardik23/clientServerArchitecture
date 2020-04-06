@@ -33,6 +33,6 @@ public class CalculateGCD implements Task, Serializable {
 
     @Override
     public Object getResult() {
-        return result;
+        return "The Greatest Common Divisor of " + value1 + " and " + value2 + " is " + result;
     }
 }

@@ -40,7 +40,7 @@ public class Client {
     public void test() {
         taskList = readTaskList();
         //Download Class file
-        int selectedTask = 0;
+        int selectedTask = 5;
         downloadClassFile(taskList.getTaskClassName()[selectedTask]);
         System.out.println("The task (" + taskList.getAvailableTasks()[selectedTask] + ") is in progress...");
         int credit = computeTask(selectedTask);

@@ -78,7 +78,7 @@ public class Master {
 
         availableTasks[1] = "Calculating Prime from 1 to 70";
         taskClassName[1] = "CalculatePrime";
-        computeTasks[1] = new CalculatePrime(70);
+        computeTasks[1] = new CalculatePrime(1, 70);
         credit[1] = 25;
 
         availableTasks[2] = "Calculating GCD of 128 and 76";
@@ -93,7 +93,7 @@ public class Master {
 
         availableTasks[4] = "Calculating Prime from 1 to 100";
         taskClassName[4] = "CalculatePrime";
-        computeTasks[4] = new CalculatePrime(100);
+        computeTasks[4] = new CalculatePrime(1, 100);
         credit[4] = 25;
 
         availableTasks[5] = "Calculating GCD of 252 and 24";
@@ -149,7 +149,7 @@ class ObjectConnection extends Thread {
                     taskObject = (TaskObject) ois.readObject();
                     String className = Master.taskList.getTaskClassName()[taskObject.getTaskId()];
                     Object result = taskObject.gettObject().getResult();
-                    System.out.println("The task: " + className + ".class is performed by a Worker, the result is :" + result);
+                    System.out.println("The task: " + className + ".class is performed by a Worker, the result is: " + result + ".");
                     taskObject.setCredit(Master.credit[taskObject.getTaskId()]);
                     oos.writeObject(taskObject);
                     System.out.println("Award a credit of " + taskObject.getCredit() + " to a Worker");

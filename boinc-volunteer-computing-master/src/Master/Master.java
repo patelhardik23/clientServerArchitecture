@@ -74,12 +74,12 @@ public class Master {
         availableTasks[0] = "Calculating Pi to 50 decimal digits";
         taskClassName[0] = "CalculatePi";
         computeTasks[0] = new CalculatePi(50);
-        credit[0] = 25;
+        credit[0] = 35;
 
         availableTasks[1] = "Calculating Prime from 1 to 70";
         taskClassName[1] = "CalculatePrime";
         computeTasks[1] = new CalculatePrime(1, 70);
-        credit[1] = 25;
+        credit[1] = 20;
 
         availableTasks[2] = "Calculating GCD of 128 and 76";
         taskClassName[2] = "CalculateGCD";
@@ -89,7 +89,7 @@ public class Master {
         availableTasks[3] = "Calculating Pi to 70 decimal digits";
         taskClassName[3] = "CalculatePi";
         computeTasks[3] = new CalculatePi(70);
-        credit[3] = 25;
+        credit[3] = 35;
 
         availableTasks[4] = "Calculating Prime from 1 to 100";
         taskClassName[4] = "CalculatePrime";
@@ -99,7 +99,7 @@ public class Master {
         availableTasks[5] = "Calculating GCD of 252 and 24";
         taskClassName[5] = "CalculateGCD";
         computeTasks[5] = new CalculateGCD(252, 24);
-        credit[5] = 25;
+        credit[5] = 30;
 
         taskList.setAvailableTasks(availableTasks);
         taskList.setTaskClassName(taskClassName);

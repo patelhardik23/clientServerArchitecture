@@ -107,6 +107,7 @@ public class WorkerUI extends javax.swing.JFrame {
         jLabel5.setText("Progress Board");
 
         jTextArea1.setColumns(20);
+        jTextArea1.setLineWrap(true);
         jTextArea1.setRows(5);
         jScrollPane1.setViewportView(jTextArea1);
 
@@ -199,7 +200,6 @@ public class WorkerUI extends javax.swing.JFrame {
             System.out.println("masterPortObject::" + masterPortObject);
             System.out.println("masterPortFile::" + masterPortFile);
             client = new Client(masterName, masterPortObject, masterPortFile);
-            client.test();
             jButton2.setEnabled(true);
         } catch (IOException ex) {
             System.out.println("Worker.WorkerUI.setButtonActionPerformed():::" + ex);
@@ -208,7 +208,7 @@ public class WorkerUI extends javax.swing.JFrame {
 
     private void refreshButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshButtonActionPerformed
         jComboBox1.setEnabled(true);
-        TaskList taskList = client.readTaskList();
+        taskList = client.readTaskList();
         String[] list = taskList.getAvailableTasks();
         for (String list1 : list) {
             jComboBox1.addItem(list1);
@@ -217,7 +217,16 @@ public class WorkerUI extends javax.swing.JFrame {
     }//GEN-LAST:event_refreshButtonActionPerformed
 
     private void calculateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_calculateButtonActionPerformed
-        // TODO add your handling code here:
+        int selectedTaskId = jComboBox1.getSelectedIndex();
+
+        client.downloadClassFile(taskList.getTaskClassName()[selectedTaskId]);
+        jTextArea1.append("The task (" + taskList.getAvailableTasks()[selectedTaskId] + ") is in progress...");
+
+        int credit = client.computeTask(selectedTaskId);
+
+        jTextArea1.append("\nThe task (" + taskList.getAvailableTasks()[selectedTaskId] + ") is done.");
+        jTextArea1.append("\nThe received credit for (" + taskList.getAvailableTasks()[selectedTaskId] + ") is " + credit);
+        jTextArea1.append("\n--------------------------------------------------------------------------------\n");
     }//GEN-LAST:event_calculateButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -243,4 +252,5 @@ public class WorkerUI extends javax.swing.JFrame {
     private int masterPortObject;
     private int masterPortFile;
     Client client;
+    TaskList taskList;
 }

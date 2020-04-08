@@ -115,7 +115,6 @@ class ObjectConnection extends Thread {
 
     public ObjectConnection(Socket socket) throws IOException {
         this.socket = socket;
-        System.out.println("Object socket port:" + socket.getPort());
         oos = new ObjectOutputStream(this.socket.getOutputStream());
         ois = new ObjectInputStream(this.socket.getInputStream());
     }
@@ -155,8 +154,6 @@ class ObjectConnection extends Thread {
                     System.out.println("Award a credit of " + taskObject.getCredit() + " to a Worker");
                     System.out.println("-------------------------");
                 } else {
-
-                    System.out.println("Connection close from: " + socket.getPort());
                     socket.close();
                     break;
                 }
@@ -178,7 +175,6 @@ class FileConnection extends Thread {
     Socket socket;
 
     public FileConnection(Socket socket) throws IOException {
-        System.out.println("File socket port:" + socket.getPort());
         this.socket = socket;
         dis = new DataInputStream(this.socket.getInputStream());
         os = this.socket.getOutputStream();
@@ -189,7 +185,6 @@ class FileConnection extends Thread {
             try {
                 String className = dis.readUTF();
                 if (className.equalsIgnoreCase("EXIT")) {
-                    System.out.println("Connection close from :" + socket.getPort());
                     socket.close();
                     break;
                 }

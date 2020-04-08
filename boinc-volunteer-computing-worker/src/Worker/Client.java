@@ -37,17 +37,6 @@ public class Client {
         oos = new ObjectOutputStream(objectSocket.getOutputStream());
     }
 
-    public void test() {
-        taskList = readTaskList();
-        //Download Class file
-        int selectedTask = 5;
-        downloadClassFile(taskList.getTaskClassName()[selectedTask]);
-        System.out.println("The task (" + taskList.getAvailableTasks()[selectedTask] + ") is in progress...");
-        int credit = computeTask(selectedTask);
-        System.out.println("The task (" + taskList.getAvailableTasks()[selectedTask] + ") is done.");
-        System.out.println("The received credit for (" + taskList.getAvailableTasks()[selectedTask] + ") is " + credit);
-    }
-
     //Get taskId and returns task credit which is received from Master
     public int computeTask(int selectedTaskId) {
         TaskObject taskObject = new TaskObject();
@@ -115,7 +104,6 @@ public class Client {
             int readBytes = is.read(buffer, 0, buffer.length);
             bos.write(buffer, 0, readBytes);
             bos.close();
-            System.out.println("File downloaded");
             return "File Downloaded";
         } catch (IOException ex) {
             Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);

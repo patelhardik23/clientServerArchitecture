@@ -7,9 +7,6 @@ package Worker;
 
 import Contract.TaskList;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import javax.swing.JList;
 
 /**
  *
@@ -43,7 +40,7 @@ public class WorkerUI extends javax.swing.JFrame {
         jTextField3 = new javax.swing.JTextField();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel4 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        jComboBox1 = new javax.swing.JComboBox<String>();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jSeparator2 = new javax.swing.JSeparator();
@@ -63,6 +60,11 @@ public class WorkerUI extends javax.swing.JFrame {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         jLabel1.setText("Master Name");
 
@@ -85,7 +87,6 @@ public class WorkerUI extends javax.swing.JFrame {
 
         jLabel4.setText("Task List");
 
-        jComboBox1.setSelectedIndex(-1);
         jComboBox1.setEnabled(false);
 
         jButton2.setText("Refresh");
@@ -228,6 +229,11 @@ public class WorkerUI extends javax.swing.JFrame {
         jTextArea1.append("\nThe received credit for (" + taskList.getAvailableTasks()[selectedTaskId] + ") is " + credit);
         jTextArea1.append("\n--------------------------------------------------------------------------------\n");
     }//GEN-LAST:event_calculateButtonActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+
+        client.closeConnection();
+    }//GEN-LAST:event_formWindowClosing
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

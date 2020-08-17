@@ -8,10 +8,6 @@ package Worker;
 import Contract.TaskList;
 import java.io.IOException;
 
-/**
- *
- * @author hardikp
- */
 public class WorkerUI extends javax.swing.JFrame {
 
     /**
